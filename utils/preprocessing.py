@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import Imputer
 
 def missing_values_table(df):
     
@@ -20,7 +20,7 @@ def missing_values_table(df):
     return mis_val_table
 
 def Pre_train_processing(train, test):
-    imputer = SimpleImputer(strategy = 'median')
+    imputer = Imputer(strategy = 'median')
     scaler = MinMaxScaler(feature_range = (0,1))
     # Imputation
     train = imputer.fit_transform(train)
