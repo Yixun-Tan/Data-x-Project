@@ -1,0 +1,2 @@
+loss,hyperparameters,iteration,runtime,score
+0.2547769743024013,"{'min_samples_split': 10, 'max_features': 'auto', 'max_depth': 60, 'n_estimators': 910, 'min_samples_leaf': 4, 'bootstrap': False}",1,1420.6104661540003,0.7452230256975987
