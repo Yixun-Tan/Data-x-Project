@@ -11,6 +11,8 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import roc_auc_score
 
+import pickle
+
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -96,3 +98,7 @@ MAX_EVALS = 100
 
 best = fmin(fn = objective, space = space, algo = tpe.suggest, trials = trials,
             max_evals = MAX_EVALS)
+
+
+with open('Trial_XGB_100.pkl', 'wb') as file:
+	pickle.dump(trials, file)
