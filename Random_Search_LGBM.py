@@ -37,16 +37,16 @@ of_connection.close()
 
 # Hyperparameter grid
 param_grid = {
-    'n_estimators': list(np.linspace(1000, 20000, 1000)),
+    'n_estimators': list(np.linspace(1000, 20000, 1000, dtype=int)),
     'learning_rate': list(np.logspace(np.log(0.01), np.log(0.2), base = 10, num = 1000)),
-    'num_leaves': list(range(20, 150)),
+    'num_leaves': range(20, 150),
     'reg_alpha': list(np.linspace(0, 0.5)),
     'reg_lambda': list(np.linspace(0, 0.5)),
     'colsample_bytree': list(np.linspace(0.6, 1, 10)),
     'subsample': list(np.linspace(0.6, 1, 100)),
     'is_unbalance': [True, False],
     'boosting_type': ['gbdt', 'goss', 'dart'],
-    'max_depth': list(range(5, 15)),
+    'max_depth': range(5, 15),
     'min_split_gain': list(np.linspace(0.0, 0.5))
 }
 
