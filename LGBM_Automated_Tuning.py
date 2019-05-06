@@ -13,14 +13,14 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Dataset Creation
-df = pd.read_csv('Ethan_google/final_dataset_train.csv')
+df = pd.read_csv('/home/Ethan_google/final_dataset_train.csv')
 y_train = df['TARGET']
 x_train = df.drop(['TARGET', 'SK_ID_CURR'], axis = 1)
 train_set = lgb.Dataset(x_train, label = y_train)
 
 # Baseline
-base_hyp = {'n_estimators': 1000, 'verbose' = -1, 'silent' = -1}
-cv_results = lgb.cv(base_hyp, train_set, num_boost_round = 10000, nfold = N_FOLDS, early_stopping_rounds = 100, metrics = 'auc')
+base_hyp = {'n_estimators': 1000, 'verbose': -1, 'silent': -1}
+cv_results = lgb.cv(base_hyp, train_set, num_boost_round = 10000, nfold = 5, early_stopping_rounds = 100, metrics = 'auc')
 best_score = cv_results['auc-mean'][-1]
 std = cv_results['auc-stdv'][-1]
 print('5 fold CV ROC_AUC is %0.5f (+/- %0.2f)' %(best_score, std * 2))
@@ -68,7 +68,7 @@ from hyperopt import hp
 from hyperopt.pyll.stochastic import sample
 
 space = {
-    'n_estimators': hp.quniform('n_estimators', 1000, 20000, 1000)
+    'n_estimators': hp.quniform('n_estimators', 1000, 20000, 1000),
     'learning_rate': hp.loguniform('learning_rate', np.log(0.01), np.log(0.2)),
     'num_leaves': hp.quniform('num_leaves', 20, 150, 1),
     'colsample_bytree': hp.uniform('colsample_by_tree', 0.6, 1.0),
@@ -96,7 +96,7 @@ import os
 PATH = 'Lightgbm'
 if not os.path.exists(PATH):
     os.mkdir(PATH)
-OUT_FILE = PATH + '/Automated_Tuning.csv'
+OUT_FILE = PATH + '/Automated_Tuning_py.csv'
 of_connection = open(OUT_FILE, 'w')
 writer = csv.writer(of_connection)
 
@@ -112,11 +112,11 @@ global  ITERATION
 ITERATION = 0
 # Governing choices for search
 N_FOLDS = 5
-MAX_EVALS = 100
+MAX_EVALS = 500
 
 best = fmin(fn = objective, space = space, algo = tpe.suggest, trials = trials,
             max_evals = MAX_EVALS)
 
 import pickle
-with open('Trial_100.pkl', 'wb') as file:
+with open('Trial_500.pkl', 'wb') as file:
     pickle.dump(trials, file)

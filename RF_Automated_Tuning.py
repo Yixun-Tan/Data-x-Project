@@ -56,7 +56,7 @@ space = {
         'max_depth': hp.choice('max_depth', np.arange(1, 100, dtype=int)),
         'max_features': hp.choice('max_features', ['auto', 'log2']),
         'min_samples_leaf': hp.choice('min_samples_leaf', np.arange(1, 12, dtype=int)),
-        'min_samples_split': hp.choice('min_samples_split', np.arange(1, 12, dtype=int)),
+        'min_samples_split': hp.choice('min_samples_split', np.arange(2, 12, dtype=int)),
         'n_estimators': hp.choice('n_estimators', np.arange(50, 1000, dtype=int))
         }
 
